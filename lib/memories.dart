@@ -5,6 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'dart:math';
 
 import 'package:ttplusone/newmemory.dart';
+import 'package:ttplusone/services/mantraservice.dart';
 
 const String memoryBox = 'memories';
 
@@ -16,6 +17,8 @@ class Memories extends StatefulWidget {
 class _MemoriesState extends State<Memories> {
   @override
   Widget build(BuildContext context) {
+    MantraService mantraService = MantraService();
+
     return Scaffold(
       appBar: AppBar(
         title: Align(
@@ -45,25 +48,12 @@ class _MemoriesState extends State<Memories> {
                       style: GoogleFonts.raleway(
                           color: Colors.white, fontSize: 28),
                     ),
-                    FutureBuilder(
-                        future: Hive.openBox('mantras'),
-                        builder:
-                            (BuildContext context, AsyncSnapshot snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            if (snapshot.hasError) {
-                              return Text(snapshot.error.toString());
-                            }
-                            var mantraCount = Hive.box('mantras').length;
-                            Random random = new Random();
-                            var randomMantra = random.nextInt(mantraCount);
-                            return Text(Hive.box('mantras').getAt(randomMantra),
-                                style: GoogleFonts.raleway(
-                                    color: Colors.white, fontSize: 20));
-                          } else {
-                            return CircularProgressIndicator();
-                          }
-                        }),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(mantraService.getMantra(),
+                          style: GoogleFonts.raleway(
+                              color: Colors.white, fontSize: 20)),
+                    ),
                   ],
                 ),
               ),

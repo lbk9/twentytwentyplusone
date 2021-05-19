@@ -13,7 +13,7 @@ class _InstructionsState extends State<Instructions> {
 
   void _onIntroEnd(context) {
     Hive.box('intro').add('viewedInstructions');
-    Navigator.of(context).push(
+    Navigator.of(context).pushReplacement(
       MaterialPageRoute(builder: (_) => Memories()),
     );
   }

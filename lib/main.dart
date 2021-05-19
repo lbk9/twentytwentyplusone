@@ -5,7 +5,6 @@ import 'package:ttplusone/instructions.dart';
 import 'package:ttplusone/memories.dart';
 
 const String _memoryBox = 'memories';
-const String _mantraBox = 'mantras';
 const String _introBox = 'intro';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,9 +31,8 @@ class _MyAppState extends State<MyApp> {
               if (snapshot.hasError) {
                 return Text(snapshot.error.toString());
               }
-              //seedData();
 
-              if (Hive.box(_introBox).length == 1) {
+              if (Hive.box(_introBox).length == 0) {
                 return Instructions();
               }
               return Memories();
@@ -45,26 +43,9 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  seedData() async {
-    var manBox = await Hive.openBox(_mantraBox);
-    var memBox = await Hive.openBox(_memoryBox);
-
-    memBox.add('Created this app in Flutter app in a morning.');
-    memBox.add('Went a run for the first time since April, got the itch back.');
-    memBox.add('Been to the gym 6 days in a row.');
-    memBox.add('Set a new fastest lap on F1.');
-    memBox.add('Finally finished painting the stairs.');
-    memBox.add('Spent time with family when I could at Christmas.');
-
-    manBox.add('Today will be better than yesterday');
-    manBox.add('Failure to prepare is the best way to prepare for failure');
-    manBox.add('Positivity wins. Always.');
-  }
-
   @override
   void dispose() {
     Hive.box(_memoryBox).close();
-    Hive.box(_mantraBox).close();
     super.dispose();
   }
 }
