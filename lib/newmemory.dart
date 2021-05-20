@@ -45,7 +45,7 @@ class _NewMemoryState extends State<NewMemory> {
                             hintText: "What's on your mind...",
                           ),
                           validator: (value) {
-                            if (value.isEmpty) {
+                            if (value!.isEmpty) {
                               return 'Looks like you never added a memory..';
                             }
                             return null;
@@ -68,7 +68,7 @@ class _NewMemoryState extends State<NewMemory> {
           style: ElevatedButton.styleFrom(
               primary: Colors.purple[200], onPrimary: Colors.white),
           onPressed: () {
-            if (_formKey.currentState.validate()) {
+            if (_formKey.currentState!.validate()) {
               Hive.box(memoryBox).add(myController.text);
               Scaffold.of(context)
                   .showSnackBar(SnackBar(content: Text('Adding memory...')));

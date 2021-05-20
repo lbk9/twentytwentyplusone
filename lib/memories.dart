@@ -92,7 +92,7 @@ class _MemoriesState extends State<Memories> {
     var _memBox = Hive.box(memoryBox).listenable();
     return ValueListenableBuilder(
         valueListenable: _memBox,
-        builder: (context, box, widget) {
+        builder: (context, dynamic box, widget) {
           return ListView.builder(
               itemCount: box.length,
               itemBuilder: (context, index) {
